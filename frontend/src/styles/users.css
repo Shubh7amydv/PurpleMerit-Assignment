@@ -29,6 +29,8 @@
 .filter-select {
   padding: 10px 12px;
   border: 1px solid var(--border-color);
+  background: var(--surface-bg);
+  color: var(--dark-text);
   border-radius: 6px;
   font-size: 14px;
   font-family: inherit;
@@ -41,9 +43,10 @@
 }
 
 .users-table-container {
-  background: white;
+  background: var(--card-bg);
   border-radius: 8px;
   box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
   overflow-x: auto;
   margin-bottom: 30px;
 }
@@ -54,7 +57,7 @@
 }
 
 .users-table th {
-  background-color: var(--light-bg);
+  background-color: #0f172a;
   padding: 15px;
   text-align: left;
   font-weight: 600;
@@ -70,7 +73,7 @@
 }
 
 .users-table tbody tr:hover {
-  background-color: #fafbfc;
+  background-color: #18243a;
 }
 
 .actions {

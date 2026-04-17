@@ -6,10 +6,11 @@
 }
 
 .profile-card {
-  background: white;
+  background: var(--card-bg);
   padding: 40px;
   border-radius: 8px;
   box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
 }
 
 .profile-card h2 {
@@ -19,7 +20,7 @@
 }
 
 .user-info {
-  background-color: var(--light-bg);
+  background-color: var(--surface-bg);
   padding: 20px;
   border-radius: 6px;
   margin-bottom: 30px;

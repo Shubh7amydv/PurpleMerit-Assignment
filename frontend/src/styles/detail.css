@@ -6,10 +6,11 @@
 }
 
 .detail-card {
-  background: white;
+  background: var(--card-bg);
   padding: 40px;
   border-radius: 8px;
   box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
 }
 
 .detail-card h2 {
@@ -40,7 +41,7 @@
 }
 
 .detail-row .value {
-  color: #666;
+  color: var(--muted-text);
 }
 
 @media (max-width: 600px) {
