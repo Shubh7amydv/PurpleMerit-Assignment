@@ -7,6 +7,13 @@ const connectDB = require('./config/database');
 const apiRoutes = require('./routes/index');
 const seedDatabase = require('./utils/seed-database');
 
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://purple-merit-assignment-re3w.vercel.app',
+  process.env.FRONTEND_URL,
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null
+].filter(Boolean);
+
 const setupAndStartServer = async () => {
   try {
     // Connect to database
@@ -25,7 +32,13 @@ const setupAndStartServer = async () => {
 
     // Middleware
     app.use(cors({
-      origin: ['http://localhost:3000', '*'],
+      origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin) || /\.vercel\.app$/i.test(origin)) {
+          return callback(null, true);
+        }
+
+        return callback(new Error(`CORS blocked for origin: ${origin}`));
+      },
       credentials: true
     }));
     app.use(bodyParser.json());
