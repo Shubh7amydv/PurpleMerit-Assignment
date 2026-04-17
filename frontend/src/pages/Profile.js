@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import UserAPI from '../utils/userAPI';
 import '../styles/profile.css';
 
 const Profile = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: user?.name || '',
     password: '',

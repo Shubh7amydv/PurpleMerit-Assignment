@@ -19,8 +19,28 @@ const UserList = () => {
   });
 
   useEffect(() => {
-    loadUsers();
-    loadRoles();
+    const loadData = async () => {
+      try {
+        setError('');
+        const response = await UserAPI.getAllUsers(page, 10, filters);
+        setUsers(response.users);
+        setTotalPages(response.pages);
+      } catch (error) {
+        setError('Failed to load users');
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+
+      try {
+        const data = await UserAPI.getRoles();
+        setRoles(data);
+      } catch (error) {
+        console.error('Failed to load roles:', error);
+      }
+    };
+
+    loadData();
   }, [page, filters]);
 
   const loadUsers = async () => {
@@ -34,15 +54,6 @@ const UserList = () => {
       console.error(error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const loadRoles = async () => {
-    try {
-      const data = await UserAPI.getRoles();
-      setRoles(data);
-    } catch (error) {
-      console.error('Failed to load roles:', error);
     }
   };
 

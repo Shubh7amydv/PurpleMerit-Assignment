@@ -10,19 +10,19 @@ const UserDetail = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const data = await UserAPI.getUser(id);
+        setUser(data);
+      } catch (error) {
+        setError('Failed to load user');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     loadUser();
   }, [id]);
-
-  const loadUser = async () => {
-    try {
-      const data = await UserAPI.getUser(id);
-      setUser(data);
-    } catch (error) {
-      setError('Failed to load user');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="error-message">{error}</div>;

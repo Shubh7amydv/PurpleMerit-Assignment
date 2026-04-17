@@ -21,35 +21,33 @@ const UserForm = () => {
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
-    loadRoles();
-    if (isEditMode) {
-      loadUser();
-    }
+    const loadData = async () => {
+      try {
+        const data = await UserAPI.getRoles();
+        setRoles(data);
+      } catch (error) {
+        setError('Failed to load roles');
+        return;
+      }
+
+      if (isEditMode) {
+        try {
+          const user = await UserAPI.getUser(id);
+          setFormData({
+            name: user.name,
+            email: user.email,
+            password: '',
+            roleId: user.role?._id || '',
+            status: user.status
+          });
+        } catch (error) {
+          setError('Failed to load user');
+        }
+      }
+    };
+
+    loadData();
   }, [id, isEditMode]);
-
-  const loadRoles = async () => {
-    try {
-      const data = await UserAPI.getRoles();
-      setRoles(data);
-    } catch (error) {
-      setError('Failed to load roles');
-    }
-  };
-
-  const loadUser = async () => {
-    try {
-      const user = await UserAPI.getUser(id);
-      setFormData({
-        name: user.name,
-        email: user.email,
-        password: '',
-        roleId: user.role?._id || '',
-        status: user.status
-      });
-    } catch (error) {
-      setError('Failed to load user');
-    }
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
